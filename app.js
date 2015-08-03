@@ -13,4 +13,8 @@ app.get("/", function (req, res) {
     res.sendFile(htmlDir + "index.html");
 });
 
+app.get("/item", function (req, res) {
+    res.sendFile(htmlDir + "item.html");
+});
+
 app.listen(3000);

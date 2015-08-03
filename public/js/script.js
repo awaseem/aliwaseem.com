@@ -21,6 +21,4 @@ $(document)
         $('.ui.sidebar')
             .sidebar('attach events', '.toc.item');
 
-        $("#test").backstretch("http://semantic-ui.com/images/avatar/large/elliot.jpg");
-
     });

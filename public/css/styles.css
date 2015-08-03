@@ -31,7 +31,7 @@
 .ui.vertical.stripe h1 {
     font-size: 2.5em;
     font-weight: bolder;
-    color: grey;
+    color: #4a4a4a;
 }
 .ui.vertical.stripe h3 {
     font-size: 2em;
@@ -69,6 +69,27 @@
 .four.wide.column img {
     max-width:100%;
     max-height:100%;
+}
+
+.icon-bar.column a {
+    color: black;
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+#icon-segment {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+#item-content h1 {
+    font-size: 24px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+#item-content p {
+    font-size: 18px;
 }
 
 @media only screen and (max-width: 700px) {
