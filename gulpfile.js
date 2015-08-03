@@ -13,5 +13,9 @@ gulp.task("serve", function () {
         server.notify.apply(server, arguments);
     });
 
+    gulp.watch("views/**/*.handlebars", function () {
+        server.notify.apply(server, arguments);
+    });
+
     gulp.watch("app.js", server.start.bind(server));
 });
