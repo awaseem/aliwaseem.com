@@ -56,9 +56,15 @@ gulp.task("deletesuperuser", function (done) {
     mongoose.connect(require("./config/database").url);
     superUser.find({}, "-_id user.username", function (err, users) {
         var choices = [];
-        users.forEach(function (value, index, array) {
+        users.forEach(function (value) {
             choices.push(value.user.username);
         });
+        if (choices.length === 0) {
+            gutil.log("No users to delete!");
+            mongoose.disconnect();
+            done();
+            return;
+        }
         inquirer.prompt([{
             type: "list",
             name: "userToDelete",
