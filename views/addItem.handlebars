@@ -1,0 +1,24 @@
+<div class="ui ten column grid container">
+    <div class="row"></div>
+    <div class="row"></div>
+    <div class="centered row">
+        <h1>Add Item</h1>
+    </div>
+    <div class="six wide centered column">
+        <form class="ui form" action="/admin/add" method="post">
+            <div class="field">
+                <label>Item Heading</label>
+                <input type="text" name="heading" placeholder="Enter heading">
+            </div>
+            <div class="field">
+                <label>Item Description</label>
+                <textarea rows="4" name="body" placeholder="Enter item description"></textarea>
+            </div>
+            <div class="field">
+                <label>Image</label>
+                <input type="url" name="image" placeholder="Enter image URL">
+            </div>
+            <button type="submit" class="ui green button">Submit</button>
+        </form>
+    </div>
+</div>

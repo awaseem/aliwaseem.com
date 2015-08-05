@@ -6,6 +6,11 @@
     </div>
     <div class="column">
         <div class="ui segment">
+            {{#each messages}}
+                <div class="ui error message">
+                    {{this}}
+                </div>
+            {{/each}}
             <form class="ui form" action="/login" method="post">
                 <div class="field">
                     <label>Username</label>

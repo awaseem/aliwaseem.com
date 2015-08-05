@@ -46,24 +46,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-app.get("/", function (req, res) {
-    res.render("home");
-});
-
-app.get("/item", function (req, res) {
-    res.sendFile(htmlDir + "item.html");
-});
-
-app.get("/login", function (req, res) {
-    res.render("login", {
-        messages: req.flash("loginMessage")
-    });
-});
-
-app.post("/login", passport.authenticate("local-login", {
-    successRedirect: "/",
-    failureRedirect: "/login",
-    failureFlash: true
-}));
+require("./routes/route")(app, passport);
 
 app.listen(3000);
