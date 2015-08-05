@@ -1,0 +1,19 @@
+<div class="ui ten column grid container">
+    <div class="row"></div>
+    <div class="row"></div>
+    <div class="centered row">
+        <h1>Delete Item: {{heading}}</h1>
+    </div>
+    <div class="six wide centered column">
+        <form class="ui form" action="/admin/delete/{{_id}}" method="post">
+            <div class="field">
+                <label>Are you sure?</label>
+                <select class="ui dropdown" name="dropdown">
+                    <option name="yes" value="1">Yes</option>
+                    <option name="no" value="0">No</option>
+                </select>
+            </div>
+            <button type="submit" class="ui red button">Submit</button>
+        </form>
+    </div>
+</div>

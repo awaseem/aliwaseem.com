@@ -85,6 +85,50 @@ module.exports = function(app, passport) {
     });
 
     app.post("/admin/edit/:id", isLoggedIn, function (req, res) {
-         
+        item.update({ _id: req.params.id }, {
+            $set: {
+                headingImage: req.body.headingImage,
+                heading: req.body.heading,
+                body: req.body.body,
+                image: req.body.image,
+                website: req.body.website,
+                git: req.body.git
+            }
+        }, function (error) {
+            if (error) {
+                console.log(error);
+                req.flash("addItemInfo", "Error could not edit item into database");
+            }
+            else {
+                req.flash("addItemInfo", "Successfully edited: " + req.body.heading);
+            }
+            res.redirect("/admin");
+        });
+    });
+
+    app.get("/admin/delete/:id", isLoggedIn, function (req, res) {
+        item.findOne({ _id: req.params.id }, function (error, results) {
+            if (error) {
+                res.render("error");
+            }
+            res.render("deleteItem", results);
+        });
+    });
+
+    app.post("/admin/delete/:id", isLoggedIn, function (req, res) {
+        if (req.body.dropdown == "1") {
+            item.findByIdAndRemove(req.params.id, function (error) {
+                if (error) {
+                    req.flash("addItemInfo", "Error failed to remove item from database")
+                }
+                else {
+                    req.flash("addItemInfo", "Removed item!")
+                }
+                res.redirect("/admin");
+            })
+        }
+        else {
+            res.redirect("/admin");
+        }
     });
 };
