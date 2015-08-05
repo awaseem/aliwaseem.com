@@ -6,8 +6,11 @@ var mongoose= require("mongoose");
 
 var item = mongoose.Schema({
     heading: String,
+    headingImage: String,
     body: String,
-    images: String
+    image: String,
+    website: String,
+    git: String
 });
 
 module.exports = mongoose.model("item", item);

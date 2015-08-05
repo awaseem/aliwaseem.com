@@ -17,7 +17,6 @@ var configDB = require("./config/database.js");
 var app = express();
 
 // Set static files locations
-var htmlDir = path.join(__dirname + "/public/html/");
 app.use(express.static(__dirname + "/public"));
 
 // bind models to the database url

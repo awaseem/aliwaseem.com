@@ -4,6 +4,35 @@
         <h1>Admin</h1>
     </div>
     <div class="centered row">
-        <button id="add-item" class="ui green button">Add Portfolio Item</button>
+        <a href="/admin/add">
+            <button id="add-item" class="ui green button">Add Portfolio Item</button>
+        </a>
     </div>
+    {{#if addItemInfo}}
+        <div class="centered row">
+            <div class="ui warning message">
+                <div class="header">{{addItemInfo}}</div>
+            </div>
+        </div>
+    {{/if}}
+    {{#if error}}
+        <div class="centered row">
+            <div class="ui error message">
+                <div class="header">{{error}}</div>
+            </div>
+        </div>
+    {{/if}}
+</div>
+
+<div class="ui three column stackable grid container">
+    {{#each items}}
+        <div class="column">
+            <div class="ui segment">
+                <h3>{{heading}}</h3>
+                <a href="admin/edit/{{_id}}">
+                    <button class="ui blue button">Edit</button>
+                </a>
+            </div>
+        </div>
+    {{/each}}
 </div>

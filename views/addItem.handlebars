@@ -7,16 +7,28 @@
     <div class="six wide centered column">
         <form class="ui form" action="/admin/add" method="post">
             <div class="field">
-                <label>Item Heading</label>
-                <input type="text" name="heading" placeholder="Enter heading">
+                <label>Heading Image</label>
+                <input type="url" name="headingImage" placeholder="Enter heading image URL" required>
             </div>
             <div class="field">
-                <label>Item Description</label>
-                <textarea rows="4" name="body" placeholder="Enter item description"></textarea>
+                <label>Heading</label>
+                <input type="text" name="heading" placeholder="Enter heading" required>
+            </div>
+            <div class="field">
+                <label>Description</label>
+                <textarea rows="4" name="body" placeholder="Enter item description" required></textarea>
             </div>
             <div class="field">
                 <label>Image</label>
-                <input type="url" name="image" placeholder="Enter image URL">
+                <input type="url" name="image" placeholder="Enter image URL" required>
+            </div>
+            <div class="field">
+                <label>Website</label>
+                <input type="url" name="website" placeholder="Enter website URL" required>
+            </div>
+            <div class="field">
+                <label>GitHub</label>
+                <input type="url" name="git" placeholder="Enter github URL" required>
             </div>
             <button type="submit" class="ui green button">Submit</button>
         </form>

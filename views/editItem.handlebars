@@ -1,0 +1,36 @@
+<div class="ui ten column grid container">
+    <div class="row"></div>
+    <div class="row"></div>
+    <div class="centered row">
+        <h1>Edit Item: {{heading}}</h1>
+    </div>
+    <div class="six wide centered column">
+        <form class="ui form" action="/admin/edit/{{_id}}" method="post">
+            <div class="field">
+                <label>Heading Image</label>
+                <input type="url" name="headingImage" placeholder="Enter heading image URL" value="{{headingImage}}" required>
+            </div>
+            <div class="field">
+                <label>Heading</label>
+                <input type="text" name="heading" placeholder="Enter heading" value="{{heading}}" required>
+            </div>
+            <div class="field">
+                <label>Description</label>
+                <textarea rows="4" name="body" placeholder="Enter item description" required>{{body}}</textarea>
+            </div>
+            <div class="field">
+                <label>Image</label>
+                <input type="url" name="image" placeholder="Enter image URL" value="{{image}}" required>
+            </div>
+            <div class="field">
+                <label>Website</label>
+                <input type="url" name="website" placeholder="Enter website URL" value="{{website}}" required>
+            </div>
+            <div class="field">
+                <label>GitHub</label>
+                <input type="url" name="git" placeholder="Enter github URL" value="{{git}}" required>
+            </div>
+            <button type="submit" class="ui blue button">Save</button>
+        </form>
+    </div>
+</div>
