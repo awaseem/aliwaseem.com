@@ -13,11 +13,21 @@ var isLoggedIn = function (req, res, next) {
 
 module.exports = function(app, passport) {
     app.get("/", function (req, res) {
-        res.render("home");
+        item.find(function (error, results) {
+
+            if (error) {
+                res.render("error");
+                console.log(error);
+            }
+
+            res.render("home", {
+                items: results
+            });
+        });
     });
 
     app.get("/item", function (req, res) {
-        res.sendFile(htmlDir + "item.html");
+        res.render("item");
     });
 
     app.get("/login", function (req, res) {

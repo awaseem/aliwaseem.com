@@ -26,31 +26,29 @@
     </div>
 
     <div class="ui vertical stripe segment">
-        <div class="ui centered sixteen column stackable grid fluid container">
-            <div class="row">
+        <div class="ui sixteen column stackable grid fluid container">
+            <div class="centered row">
                 <h1 class="ui header">My Portfolio</h1>
             </div>
-            <div class="row">
-                <div class="four wide column">
-                    <img class="ui fluid image" src="http://semantic-ui.com/images/avatar/large/elliot.jpg">
-                </div>
-                <div class="four wide column">
-                    <img class="ui fluid image" src="http://semantic-ui.com/images/avatar/large/elliot.jpg">
-                </div>
-                <div class="four wide column">
-                    <img class="ui fluid image" src="http://semantic-ui.com/images/avatar/large/elliot.jpg">
-                </div>
-            </div>
-            <div class="row">
-                <div class="four wide column">
-                    <img class="ui fluid image" src="http://semantic-ui.com/images/avatar/large/elliot.jpg">
-                </div>
-                <div class="four wide column">
-                    <img class="ui fluid image" src="http://semantic-ui.com/images/avatar/large/elliot.jpg">
-                </div>
-                <div class="four wide column">
-                    <img class="ui fluid image" src="http://semantic-ui.com/images/avatar/large/elliot.jpg">
-                </div>
+            <div class="centered three column row">
+                {{#each items}}
+                    <div class="four wide column" style="padding-bottom: 28px;">
+                        <div class="proto-image" style="background-image: url({{image}})">
+                            <div class="ui dimmer">
+                                <div class="content">
+                                    <div class="center">
+                                        <h3 class="ui inverted icon header">{{heading}}</h3>
+                                        <div class="dimmer-button">
+                                            <a href="/admin/add">
+                                                <button id="add-item" class="ui green button">Show me more</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
             </div>
             <div class="row"></div>
         </div>

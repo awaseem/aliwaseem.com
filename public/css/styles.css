@@ -92,6 +92,24 @@
     font-size: 18px;
 }
 
+.proto-image {
+    background: no-repeat center center;
+    background-size: cover;
+    height: 260px;
+}
+
+@media only screen and (max-width: 1200px) {
+    .proto-image{
+        height: 212px;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .proto-image{
+        height: 160px;
+    }
+}
+
 @media only screen and (max-width: 700px) {
     .ui.fixed.menu {
         display: none !important;
@@ -114,5 +132,8 @@
     }
     .masthead h3.ui.header {
         font-size: 1.0em;
+    }
+    .proto-image {
+        height: 300px;
     }
 }
