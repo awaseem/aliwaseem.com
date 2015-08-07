@@ -36,7 +36,13 @@ module.exports = function(app, passport) {
     });
 
     app.get("/about", function (req, res) {
-        res.render("about");
+        about.findOne(function (err, results) {
+            if (err) {
+                console.log(err);
+                return res.render("error");
+            }
+            res.render("about", results)
+        });
     });
 
     app.get("/login", function (req, res) {
@@ -74,7 +80,39 @@ module.exports = function(app, passport) {
     });
 
     app.get("/admin/about/edit", isLoggedIn, function (req, res) {
-        res.render("editAbout");
+        about.findOne(function (err, results) {
+            if (err) {
+                console.log(err);
+                return res.render("error")
+            }
+            if (!results) {
+                var newAbout = new about();
+                newAbout.body = "";
+                newAbout.save(function (err, about) {
+                    if (err) {
+                        console.log(err);
+                        return res.render("error");
+                    }
+                    res.render("aboutEdit", about);
+                });
+            }
+            else {
+                res.render("aboutEdit", results);
+            }
+        });
+    });
+
+    app.post("/admin/about/edit", isLoggedIn, function (req, res) {
+        about.findOneAndUpdate({}, { body: req.body.body.replace(/(?:\r\n|\r|\n)/g, '<br />') }, {}, function (err) {
+            if (err) {
+                req.flash("addItemInfo", "Error could not add item to the database");
+                console.log(err);
+            }
+            else {
+                req.flash("addItemInfo", "Updated about section!");
+            }
+            res.redirect("/admin");
+        });
     });
 
     app.get("/admin/add", isLoggedIn, function (req, res) {
@@ -109,11 +147,6 @@ module.exports = function(app, passport) {
                 res.render("error");
                 return;
             }
-            results.helpers = {
-                replaceBreak: function (str) {
-                    return str.replace(/<br\s*\/?>/mg,"\n");
-                }
-            };
             res.render("editItem", results);
         });
     });

@@ -25,9 +25,15 @@ mongoose.connect(configDB.url);
 require("./config/passport")(passport);
 
 // Set handles bars as template engine
-app.engine("handlebars", handleBars({
-    defaultLayout: "main"
-}));
+var hbs = handleBars.create({
+    defaultLayout: "main",
+    helpers: {
+        replaceBreak: function (str) {
+            return str.replace(/<br\s*\/?>/mg,"\n");
+        }
+    }
+});
+app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
 // Passport local login setup
