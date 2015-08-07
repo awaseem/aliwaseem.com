@@ -3,6 +3,7 @@
  */
 
 var item = require("../models/item");
+var about = require("../models/about");
 
 var isLoggedIn = function (req, res, next) {
     if (req.isAuthenticated()) {
@@ -14,12 +15,10 @@ var isLoggedIn = function (req, res, next) {
 module.exports = function(app, passport) {
     app.get("/", function (req, res) {
         item.find(function (error, results) {
-
             if (error) {
                 res.render("error");
                 return;
             }
-
             res.render("home", {
                 items: results
             });
@@ -36,10 +35,19 @@ module.exports = function(app, passport) {
         });
     });
 
+    app.get("/about", function (req, res) {
+        res.render("about");
+    });
+
     app.get("/login", function (req, res) {
         res.render("login", {
             messages: req.flash("loginMessage")
         });
+    });
+
+    app.get("/logout", function (req, res) {
+        req.logout();
+        res.redirect("/login");
     });
 
     app.post("/login", passport.authenticate("local-login", {
@@ -65,6 +73,10 @@ module.exports = function(app, passport) {
         });
     });
 
+    app.get("/admin/about/edit", isLoggedIn, function (req, res) {
+        res.render("editAbout");
+    });
+
     app.get("/admin/add", isLoggedIn, function (req, res) {
         res.render("addItem");
     });
@@ -74,7 +86,7 @@ module.exports = function(app, passport) {
 
         newItem.headingImage = req.body.headingImage;
         newItem.heading = req.body.heading;
-        newItem.body = req.body.body;
+        newItem.body = req.body.body.replace(/(?:\r\n|\r|\n)/g, '<br />');
         newItem.image = req.body.image;
         newItem.website = req.body.website;
         newItem.git = req.body.git;
@@ -97,6 +109,11 @@ module.exports = function(app, passport) {
                 res.render("error");
                 return;
             }
+            results.helpers = {
+                replaceBreak: function (str) {
+                    return str.replace(/<br\s*\/?>/mg,"\n");
+                }
+            };
             res.render("editItem", results);
         });
     });
@@ -106,7 +123,7 @@ module.exports = function(app, passport) {
             $set: {
                 headingImage: req.body.headingImage,
                 heading: req.body.heading,
-                body: req.body.body,
+                body: req.body.body.replace(/(?:\r\n|\r|\n)/g, '<br />'),
                 image: req.body.image,
                 website: req.body.website,
                 git: req.body.git
