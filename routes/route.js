@@ -17,7 +17,7 @@ module.exports = function(app, passport) {
 
             if (error) {
                 res.render("error");
-                console.log(error);
+                return;
             }
 
             res.render("home", {
@@ -26,8 +26,14 @@ module.exports = function(app, passport) {
         });
     });
 
-    app.get("/item", function (req, res) {
-        res.render("item");
+    app.get("/item/:id", function (req, res) {
+        item.findOne({ _id: req.params.id }, function (error, results) {
+            if (error) {
+                res.render("error");
+                return;
+            }
+            res.render("item", results);
+        });
     });
 
     app.get("/login", function (req, res) {
@@ -89,6 +95,7 @@ module.exports = function(app, passport) {
         item.findOne({ _id: req.params.id }, function (error, results) {
             if (error) {
                 res.render("error");
+                return;
             }
             res.render("editItem", results);
         });
@@ -120,6 +127,7 @@ module.exports = function(app, passport) {
         item.findOne({ _id: req.params.id }, function (error, results) {
             if (error) {
                 res.render("error");
+                return;
             }
             res.render("deleteItem", results);
         });

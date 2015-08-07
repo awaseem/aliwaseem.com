@@ -7,7 +7,7 @@
 
 <!-- Page Contents -->
 <div class="pusher">
-    <div class="ui inverted vertical masthead center aligned segment">
+    <div class="ui inverted vertical masthead center aligned segment" style="background-image: url({{headingImage}})">
         <div class="ui container">
             <div class="ui large secondary inverted pointing menu">
                 <a class="toc item">
@@ -18,21 +18,39 @@
             </div>
         </div>
         <div class="ui text container">
-            <h3 class="ui inverted header title">HELLO, MY NAME IS</h3>
+            <h3 class="ui inverted header title">PORTFOLIO ITEM:</h3>
             <h1 class="ui inverted header">
-                <strong>ALI WASEEM</strong>
+                <strong>{{heading}}</strong>
             </h1>
-            <h3 class="ui inverted header">DEVELOPER, ENGINEER & GAME ADDICT</h3>
         </div>
     </div>
 
     <div id="item-content" class="ui vertical stripe segment">
         <div class="ui center aligned grid text container">
             <h1 class="ui header">about this project</h1>
-            <p>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede link mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.
-            </p>
+            <div class="row">
+                <a href="{{git}}">
+                    <button class="ui basic green button">
+                        <i class="github icon"></i>
+                        Lets see some code
+                    </button>
+                </a>
+                <a href="{{website}}">
+                    <button class="ui basic pink button">
+                        <i class="desktop icon"></i>
+                        Lets see it in action
+                    </button>
+                </a>
+            </div>
+            <div class="row">
+                <p>{{body}}</p>
+            </div>
             <div class="row"></div>
+            <div class="row">
+                <div class="sixteen wide column">
+                    <img class="ui fluid image" src="{{image}}">
+                </div>
+            </div>
         </div>
     </div>
 

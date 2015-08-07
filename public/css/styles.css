@@ -2,6 +2,15 @@
     display: none;
 }
 
+.ui.secondary.inverted.pointing.menu {
+    border-color: transparent;
+}
+
+.ui.inverted.vertical.masthead.center.aligned.segment {
+    background: no-repeat center center;
+    background-size: cover;
+}
+
 .masthead.segment {
     min-height: 600px;
     padding: 1em 0em;
