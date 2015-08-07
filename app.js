@@ -53,4 +53,9 @@ app.use(flash());
 
 require("./routes/route")(app, passport);
 
+app.use(function (err, req, res, next) {
+    console.log(err.stack);
+    res.render("error");
+});
+
 app.listen(3000);

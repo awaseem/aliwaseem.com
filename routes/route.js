@@ -13,11 +13,10 @@ var isLoggedIn = function (req, res, next) {
 };
 
 module.exports = function(app, passport) {
-    app.get("/", function (req, res) {
-        item.find(function (error, results) {
-            if (error) {
-                res.render("error");
-                return;
+    app.get("/", function (req, res, next) {
+        item.find(function (err, results) {
+            if (err) {
+                return next(err);
             }
             res.render("home", {
                 items: results
@@ -25,21 +24,19 @@ module.exports = function(app, passport) {
         });
     });
 
-    app.get("/item/:id", function (req, res) {
-        item.findOne({ _id: req.params.id }, function (error, results) {
-            if (error) {
-                res.render("error");
-                return;
+    app.get("/item/:id", function (req, res, next) {
+        item.findOne({ _id: req.params.id }, function (err, results) {
+            if (err) {
+                return next(err);
             }
             res.render("item", results);
         });
     });
 
-    app.get("/about", function (req, res) {
+    app.get("/about", function (req, res, next) {
         about.findOne(function (err, results) {
             if (err) {
-                console.log(err);
-                return res.render("error");
+                return next(err);
             }
             res.render("about", results)
         });
@@ -68,30 +65,27 @@ module.exports = function(app, passport) {
 
             if (error) {
                 context.error = true;
-                console.log(error);
             }
             else {
                 context.items = results
             }
 
-            context.addItemInfo = req.flash("addItemInfo");
+            context.adminInfo = req.flash("adminInfo");
             res.render("admin", context);
         });
     });
 
-    app.get("/admin/about/edit", isLoggedIn, function (req, res) {
+    app.get("/admin/about/edit", isLoggedIn, function (req, res, next) {
         about.findOne(function (err, results) {
             if (err) {
-                console.log(err);
-                return res.render("error")
+                return next(err);
             }
             if (!results) {
                 var newAbout = new about();
                 newAbout.body = "";
                 newAbout.save(function (err, about) {
                     if (err) {
-                        console.log(err);
-                        return res.render("error");
+                        return next(err);
                     }
                     res.render("aboutEdit", about);
                 });
@@ -105,11 +99,10 @@ module.exports = function(app, passport) {
     app.post("/admin/about/edit", isLoggedIn, function (req, res) {
         about.findOneAndUpdate({}, { body: req.body.body.replace(/(?:\r\n|\r|\n)/g, '<br />') }, {}, function (err) {
             if (err) {
-                req.flash("addItemInfo", "Error could not add item to the database");
-                console.log(err);
+                req.flash("adminInfo", "Error could not add item to the database");
             }
             else {
-                req.flash("addItemInfo", "Updated about section!");
+                req.flash("adminInfo", "Updated about section!");
             }
             res.redirect("/admin");
         });
@@ -131,21 +124,19 @@ module.exports = function(app, passport) {
 
         newItem.save(function (err) {
             if (err) {
-                req.flash("addItemInfo", "Error could not add item to the database");
-                console.log(err);
+                req.flash("adminInfo", "Error could not add item to the database");
             }
             else {
-                req.flash("addItemInfo", "Successfully added item!")
+                req.flash("adminInfo", "Successfully added item!")
             }
             res.redirect("/admin");
         });
     });
 
-    app.get("/admin/edit/:id", isLoggedIn, function (req, res) {
-        item.findOne({ _id: req.params.id }, function (error, results) {
-            if (error) {
-                res.render("error");
-                return;
+    app.get("/admin/edit/:id", isLoggedIn, function (req, res, next) {
+        item.findOne({ _id: req.params.id }, function (err, results) {
+            if (err) {
+                return next(err);
             }
             res.render("editItem", results);
         });
@@ -163,21 +154,19 @@ module.exports = function(app, passport) {
             }
         }, function (error) {
             if (error) {
-                console.log(error);
-                req.flash("addItemInfo", "Error could not edit item into database");
+                req.flash("adminInfo", "Error could not edit item into database");
             }
             else {
-                req.flash("addItemInfo", "Successfully edited: " + req.body.heading);
+                req.flash("adminInfo", "Successfully edited: " + req.body.heading);
             }
             res.redirect("/admin");
         });
     });
 
-    app.get("/admin/delete/:id", isLoggedIn, function (req, res) {
-        item.findOne({ _id: req.params.id }, function (error, results) {
-            if (error) {
-                res.render("error");
-                return;
+    app.get("/admin/delete/:id", isLoggedIn, function (req, res, next) {
+        item.findOne({ _id: req.params.id }, function (err, results) {
+            if (err) {
+                return next(err);
             }
             res.render("deleteItem", results);
         });
@@ -187,10 +176,10 @@ module.exports = function(app, passport) {
         if (req.body.dropdown == "1") {
             item.findByIdAndRemove(req.params.id, function (error) {
                 if (error) {
-                    req.flash("addItemInfo", "Error failed to remove item from database")
+                    req.flash("adminInfo", "Error failed to remove item from database")
                 }
                 else {
-                    req.flash("addItemInfo", "Removed item!")
+                    req.flash("adminInfo", "Removed item!")
                 }
                 res.redirect("/admin");
             })
