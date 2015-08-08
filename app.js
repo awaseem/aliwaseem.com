@@ -9,8 +9,10 @@ var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var handleBars = require("express-handlebars");
 var session = require("express-session");
+var fileStore = require("session-file-store")(session);
 var passport = require("passport");
 var flash = require("connect-flash");
+var winston = require("winston");
 var configDB = require("./config/database.js");
 
 // configurations for express app
@@ -18,6 +20,23 @@ var app = express();
 
 // Set static files locations
 app.use(express.static(__dirname + "/public"));
+
+var transports = [];
+
+if (app.get("env") == "production" ) {
+    transports.push(new winston.transports.File({
+        filename: "error.log",
+        timeStamp: true
+    }))
+}
+else {
+    transports.push(new winston.transports.Console())
+}
+
+// Setup logger
+var logger = new (winston.Logger)({
+    transports: transports
+});
 
 // bind models to the database url
 mongoose.connect(configDB.url);
@@ -43,6 +62,10 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 app.use(session({
+    store: new fileStore({
+        ttl: 300,
+        logFn: logger.info
+    }),
     secret: 'test',
     resave: false,
     saveUninitialized: true
@@ -54,7 +77,7 @@ app.use(flash());
 require("./routes/route")(app, passport);
 
 app.use(function (err, req, res, next) {
-    console.log(err.stack);
+    logger.error(err.stack);
     res.render("error");
 });
 
