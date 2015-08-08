@@ -44,7 +44,9 @@ mongoose.connect(configDB.url);
 require("./config/passport")(passport);
 
 // Set handles bars as template engine
+app.set("views", __dirname + "/views");
 var hbs = handleBars.create({
+    layoutsDir: path.join(app.settings.views, "layouts"),
     defaultLayout: "main",
     helpers: {
         replaceBreak: function (str) {
