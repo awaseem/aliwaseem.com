@@ -97,5 +97,7 @@ gulp.task("serve", function () {
         server.notify.apply(server, arguments);
     });
 
-    gulp.watch("app.js", server.start.bind(server));
+    gulp.watch(["routes/**/*.js", "models/**/*.js", "config/**/*.js", "app.js"], function () {
+        server.start.apply(server);
+    });
 });
