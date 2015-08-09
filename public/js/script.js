@@ -4,6 +4,21 @@
 
 $(document).ready(function() {
 
+    var selector = $(".ui.inverted.vertical.masthead.center.aligned.segment");
+    selector.waitForImages({
+        waitForAll: true,
+        finished: function () {
+            selector.animate({ opacity: 1 }, { duration: 1000 });
+        }
+    });
+
+    $(".proto-image").waitForImages({
+        waitForAll: true,
+        each: function () {
+            $(this).animate({ opacity: 1 }, { duration: 1500 });
+        }
+    });
+
     // fix menu when passed
     $('.masthead')
         .visibility({
@@ -23,5 +38,5 @@ $(document).ready(function() {
     $('.proto-image')
         .dimmer({
             on: 'hover'
-        })
+        });
 });
