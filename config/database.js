@@ -3,5 +3,5 @@
  */
 
 module.exports = {
-    "url": "mongodb://ali:ali@ds029803.mongolab.com:29803/aliwaseem"
+    "url": "YOU MONGO URI"
 };
