@@ -44,6 +44,7 @@ module.exports = function(app, passport) {
 
     app.get("/login", function (req, res) {
         res.render("login", {
+            layout: "blank",
             messages: req.flash("loginMessage")
         });
     });
@@ -69,7 +70,7 @@ module.exports = function(app, passport) {
             else {
                 context.items = results
             }
-
+            context.layout = "blank";
             context.adminInfo = req.flash("adminInfo");
             res.render("admin", context);
         });
@@ -87,10 +88,12 @@ module.exports = function(app, passport) {
                     if (err) {
                         return next(err);
                     }
+                    about.layout = "blank";
                     res.render("aboutEdit", about);
                 });
             }
             else {
+                results.layout = "blank";
                 res.render("aboutEdit", results);
             }
         });
@@ -109,7 +112,7 @@ module.exports = function(app, passport) {
     });
 
     app.get("/admin/add", isLoggedIn, function (req, res) {
-        res.render("addItem");
+        res.render("addItem", { layout: "blank" });
     });
 
     app.post("/admin/add", isLoggedIn, function (req, res) {
@@ -138,6 +141,7 @@ module.exports = function(app, passport) {
             if (err) {
                 return next(err);
             }
+            results.layout = "blank";
             res.render("editItem", results);
         });
     });
@@ -168,6 +172,7 @@ module.exports = function(app, passport) {
             if (err) {
                 return next(err);
             }
+            results.layout = "blank";
             res.render("deleteItem", results);
         });
     });
