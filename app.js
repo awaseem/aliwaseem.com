@@ -80,7 +80,7 @@ require("./routes/route")(app, passport);
 
 app.use(function (err, req, res, next) {
     logger.error(err.stack);
-    res.render("error");
+    res.render("error", { layout: "blank" });
 });
 
 app.listen(3000);
