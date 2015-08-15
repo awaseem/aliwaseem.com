@@ -42,10 +42,10 @@ gulp.task("createsuperuser", function (done) {
         newSuperUser.save(function (err) {
             if (err) {
                 gutil.log("Could not create new user because of the following error " + err);
-                mongoose.disconnect();
-                done();
             }
-            gutil.log("Successfully created new super user!");
+            else {
+                gutil.log("Successfully created new super user!");
+            }
             mongoose.disconnect();
             done();
         });
@@ -74,10 +74,10 @@ gulp.task("deletesuperuser", function (done) {
             superUser.remove({ "user.username": answers.userToDelete}, function (err) {
                 if (err) {
                     gutil.log("Failed to remove username because of the following error: " + err);
-                    mongoose.disconnect();
-                    done();
                 }
-                gutil.log("Successfully deleted user!");
+                else {
+                    gutil.log("Successfully deleted user!");
+                }
                 mongoose.disconnect();
                 done();
             });
