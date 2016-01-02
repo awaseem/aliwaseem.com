@@ -27,7 +27,7 @@ gulp.task("createsuperuser", function (done) {
                     return;
                 }
                 done(true);
-            })
+            });
         }
     },{
         type: "password",

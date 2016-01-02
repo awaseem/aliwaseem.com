@@ -27,10 +27,10 @@ if (app.get("env") == "production" ) {
     transports.push(new winston.transports.File({
         filename: "error.log",
         timeStamp: true
-    }))
+    }));
 }
 else {
-    transports.push(new winston.transports.Console())
+    transports.push(new winston.transports.Console());
 }
 
 // Setup logger
